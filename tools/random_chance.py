@@ -1,6 +1,7 @@
 # Adapted from: https://github.com/lupantech/ScienceQA/blob/main/models/run_gpt3.py
 
 import argparse
+import os
 import json
 import random
 from typing import List
@@ -13,7 +14,7 @@ parser.add_argument('--output_dir', type=str, default='runs')
 parser.add_argument('--test_split', type=str, default='test')
 parser.add_argument('--test_number', type=int, default=-1, help='Number of test frames to run (default: -1, all)')
 parser.add_argument('--exp_label', type=str, default='exp_random', help='Experiment label')
-parser.add_argument('--random_seed', type=int, default=1, help='Random seed')
+parser.add_argument('--random_seed', type=int, default=42, help='Random seed')
 parser.add_argument('--debug', action='store_true', help='Debug mode')
 
 args = parser.parse_args()
@@ -65,3 +66,7 @@ if __name__ == "__main__":
     acc_dict = compute_acc(results)
     print(json.dumps(acc_dict, indent=4, sort_keys=True))
     print(json.dumps(results, indent=4, sort_keys=True))
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
+    with open(args.output_dir + '/' + result_file_name, 'w') as f:
+        json.dump(results, f, indent=4, sort_keys=True)

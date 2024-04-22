@@ -15,7 +15,7 @@ def load_data(args):
 
 
 def get_result_file(args):
-    result_file = f"{args.data_root}/{args.exp_label}_seed_{args.random_seed}.json"
+    result_file = f"{args.exp_label}_seed_{args.random_seed}.json"
     return result_file
 
 
